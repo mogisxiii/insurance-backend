@@ -1,8 +1,3 @@
-/* =========================================================
-   SERVER LAYER – DYNAMIC PRICING ENGINE V6
-   Enterprise Ready – Multi Scenario + Chat Adapter
-========================================================= */
-
 const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
@@ -14,33 +9,42 @@ const { parseVietnameseInput } = require("../parsers/vietnameseParser")
 
 const app = express()
 
-app.set("trust proxy", 1);
+/* ================================
+   QUAN TRỌNG CHO VERCEL
+================================ */
+app.set("trust proxy", 1)
 
-const PORT = process.env.PORT || 5000
-
-
-/* =========================================================
-   SECURITY & MIDDLEWARE
-========================================================= */
-
+/* ================================
+   CORS – MỞ ĐÚNG CHO FRONTEND
+================================ */
 app.use(cors({
   origin: [
     "https://insurance-frontend-beta.vercel.app"
   ],
-  credentials: false
-}));
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+}))
 
-app.use(helmet());
-app.use(express.json({ limit: "10kb" }));
+/* ================================
+   SECURITY
+================================ */
+app.use(helmet())
+app.use(express.json({ limit: "10kb" }))
 
+/* ================================
+   RATE LIMIT – FIX PROXY ERROR
+================================ */
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 200,
     standardHeaders: true,
-    legacyHeaders: false
+    legacyHeaders: false,
+    keyGenerator: (req) => {
+      return req.ip   // 🔥 bắt buộc khi chạy sau proxy
+    }
   })
-);
+)
 
 
 /* =========================================================
@@ -230,6 +234,7 @@ app.use((err, req, res, next) => {
 /* =========================================================
    START SERVER
 ========================================================= */
+const PORT = process.env.PORT || 5000
 
 if (process.env.NODE_ENV !== "production") {
   app.listen(PORT, () => {
