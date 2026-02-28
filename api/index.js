@@ -4,7 +4,7 @@ const helmet = require("helmet")
 const rateLimit = require("express-rate-limit")
 
 const { calculatePremium } = require("../pricingEngineV6")
-const { Categories } = require("../types/vehicleInput")
+const { Categories } = require("../vehicle")
 const { parseVietnameseInput } = require("../parsers/vietnameseParser")
 
 const app = express()
