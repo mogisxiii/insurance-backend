@@ -13,6 +13,9 @@ const { Categories } = require("../types/vehicleInput")
 const { parseVietnameseInput } = require("../parsers/vietnameseParser")
 
 const app = express()
+
+app.set("trust proxy", 1);
+
 const PORT = process.env.PORT || 5000
 
 
@@ -21,9 +24,10 @@ const PORT = process.env.PORT || 5000
 ========================================================= */
 
 app.use(cors({
-  origin: "https://insurance-frontend-beta.vercel.app",
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
+  origin: [
+    "https://insurance-frontend-beta.vercel.app"
+  ],
+  credentials: false
 }));
 
 app.use(helmet());
