@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "legal_basis": "Nghị định 67/2023/NĐ-CP",
+    "vat_rate": 0.1,
+    "year_days": 365,
+    "short_term_threshold_days": 30
+  },
+
+  "motorcycle": {
+    "two_wheel": {
+      "under_50cc": 55000,
+      "over_50cc": 60000
+    },
+    "three_wheel": 290000
+  },
+
+  "electric_vehicle": {
+    "electric_bike": 55000,
+    "other_similar": 290000
+  },
+
+  "car_non_business": {
+    "seat_ranges": [
+      { "min": 1, "max": 5, "fee": 437000 },
+      { "min": 6, "max": 11, "fee": 794000 },
+      { "min": 12, "max": 24, "fee": 1270000 },
+      { "min": 25, "max": 999, "fee": 1825000 }
+    ],
+    "pickup_minivan": 437000
+  },
+
+  "car_business": {
+    "seat_exact": {
+      "under_6": 756000,
+      "6": 929000,
+      "7": 1080000,
+      "8": 1253000,
+      "9": 1404000,
+      "10": 1512000,
+      "11": 1656000,
+      "12": 1822000,
+      "13": 2049000,
+      "14": 2221000,
+      "15": 2394000,
+      "16": 3054000,
+      "17": 2718000,
+      "18": 2869000,
+      "19": 3041000,
+      "20": 3191000,
+      "21": 3364000,
+      "22": 3515000,
+      "23": 3688000,
+      "24": 4632000,
+      "25": 4813000
+    },
+    "over_25_formula": {
+      "base": 4813000,
+      "increment_per_seat": 30000,
+      "base_seat": 25
+    },
+    "pickup_minivan": 933000
+  },
+
+  "truck": {
+    "weight_ranges": [
+      { "min": 0, "max": 3, "fee": 853000 },
+      { "min": 3, "max": 8, "fee": 1660000 },
+      { "min": 8, "max": 15, "fee": 2746000 },
+      { "min": 15, "max": 999, "fee": 3200000 }
+    ]
+  },
+
+  "special_cases": {
+    "driving_training": {
+      "multiplier": 1.2,
+      "apply_to": ["car_non_business", "truck"]
+    },
+    "taxi": {
+      "multiplier": 1.7,
+      "apply_to": ["car_business"]
+    },
+    "ambulance": {
+      "multiplier": 1.2,
+      "base_reference": "car_business.pickup_minivan"
+    },
+    "cash_transport": {
+      "multiplier": 1.2,
+      "base_reference": "car_non_business.seat_ranges.under_6"
+    },
+    "special_use_truck_based": {
+      "multiplier": 1.2,
+      "base_reference": "truck.same_weight"
+    },
+    "tractor_head": {
+      "multiplier": 1.5,
+      "base_reference": "truck.over_15_tons"
+    },
+    "tractor_machine": {
+      "multiplier": 1.2,
+      "base_reference": "truck.under_3_tons"
+    },
+    "bus": {
+      "base_reference": "car_non_business.same_seat"
+    }
+  },
+
+  "duration_rule": {
+    "short_term": {
+      "condition": "days <= 30",
+      "formula": "annual_fee / 12"
+    },
+    "standard": {
+      "condition": "days > 30",
+      "formula": "annual_fee * (days / 365)"
+    }
+  }
+}
