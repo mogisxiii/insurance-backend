@@ -15,22 +15,21 @@ const { parseVietnameseInput } = require("./parsers/vietnameseParser")
 const app = express()
 const PORT = process.env.PORT || 5000
 
+
 /* =========================================================
    SECURITY & MIDDLEWARE
 ========================================================= */
 
-app.use(helmet())
 app.use(cors({
-  origin: [
-    "https://insurance-frontend-beta.vercel.app",
-    "https://insurance-frontend.vercel.app"
-  ],
+  origin: "https://insurance-frontend-beta.vercel.app",
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
-  credentials: false
-}))
-app.options("*", cors())
-app.use(express.json({ limit: "10kb" }))
+}));
+
+app.options("*", cors());
+
+app.use(helmet());
+app.use(express.json({ limit: "10kb" }));
 
 app.use(
   rateLimit({
@@ -39,7 +38,8 @@ app.use(
     standardHeaders: true,
     legacyHeaders: false
   })
-)
+);
+
 
 /* =========================================================
    UTILITIES
