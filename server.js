@@ -26,8 +26,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type"],
 }));
 
-app.options("*", cors());
-
 app.use(helmet());
 app.use(express.json({ limit: "10kb" }));
 
