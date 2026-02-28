@@ -8,9 +8,9 @@ const cors = require("cors")
 const helmet = require("helmet")
 const rateLimit = require("express-rate-limit")
 
-const { calculatePremium } = require("./pricingEngineV6")
-const { Categories } = require("./types/vehicleInput")
-const { parseVietnameseInput } = require("./parsers/vietnameseParser")
+const { calculatePremium } = require("../pricingEngineV6")
+const { Categories } = require("../types/vehicleInput")
+const { parseVietnameseInput } = require("../parsers/vietnameseParser")
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -235,4 +235,4 @@ if (process.env.NODE_ENV !== "production") {
   })
 }
 
-module.exports = app
+module.exports = app;
