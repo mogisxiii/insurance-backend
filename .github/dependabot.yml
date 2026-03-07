@@ -1,0 +1,24 @@
+version: 2
+
+updates:
+  # 1️⃣ Update npm packages (Node.js)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "npm"
+    labels:
+      - "dependencies"
+
+  # 2️⃣ Update Docker images
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "docker"
+    labels:
+      - "docker"
+      - "dependencies"
